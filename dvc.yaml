@@ -1,0 +1,74 @@
+stages:
+  prepare:
+    cmd: python src/prepare.py
+    deps:
+      - src/prepare.py
+      - ru-fr_interference/2/wav_et_textgrids
+    params:
+      - corpus_root
+      - min_speakers
+      - min_reps_per_spk
+      - target_words
+    outs:
+      - data/manifest.json
+
+  extract:
+    cmd: python src/extract.py
+    deps:
+      - src/extract.py
+      - data/manifest.json
+    params:
+      - wav2vec_model
+      - target_sr
+    outs:
+      - data/representations.npz
+      - data/meta.json
+
+  convert:
+    cmd: python src/convert.py
+    deps:
+      - src/convert.py
+      - data/representations.npz
+    outs:
+      - data/reps_float64.npy
+      - data/reps_float32.npy
+      - data/reps_float16.npy
+      - data/reps_int8.npy
+      - data/int8_scale.json
+
+  distances:
+    cmd: python src/distances.py
+    deps:
+      - src/distances.py
+      - data/meta.json
+      - data/reps_float64.npy
+      - data/reps_float32.npy
+      - data/reps_float16.npy
+      - data/reps_int8.npy
+      - data/int8_scale.json
+    outs:
+      - data/distances.json
+
+  visualize:
+    cmd: python src/visualize.py
+    deps:
+      - src/visualize.py
+      - data/distances.json
+      - data/reps_float64.npy
+      - data/reps_float32.npy
+      - data/reps_float16.npy
+      - data/reps_int8.npy
+    outs:
+      - data/figures
+
+  report:
+    cmd: python src/report.py
+    deps:
+      - src/report.py
+      - data/distances.json
+      - data/reps_float64.npy
+      - data/reps_float32.npy
+      - data/reps_float16.npy
+      - data/reps_int8.npy
+    outs:
+      - data/report.md

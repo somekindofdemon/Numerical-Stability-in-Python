@@ -1,0 +1,6 @@
+corpus_root: ru-fr_interference/2/wav_et_textgrids/FRcorp_textgrids_only
+min_speakers: 5        # word must appear in at least this many speakers
+min_reps_per_spk: 2    # each speaker must have at least this many repetitions
+target_words: []       # empty = use all words meeting min_speakers/min_reps filters
+wav2vec_model: facebook/wav2vec2-base
+target_sr: 16000

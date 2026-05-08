@@ -1,0 +1,37 @@
+# Environment
+venv/
+node_modules/
+.venv/
+
+# macOS
+.DS_Store
+
+# Large data files (regenerable via DVC pipeline)
+data/representations.npz
+data/reps_*.npy
+data/distances.json
+data/manifest.json
+data/meta.json
+
+# Corpus (raw data, not to be versioned)
+ru-fr_interference/
+
+# Personal files (not for repo)
+"Yawen Zhang pro lab 5.docx"
+pro_lab_5_numerical_stability_Yawen_Zhang.pdf
+numerical_stability.pdf
+
+# Misc
+*.pyc
+__pycache__/
+
+# Claude settings
+.claude/
+
+# Reports (not for repo)
+data/report.md
+data/final_report.md
+data/final_report.docx
+
+# npm lock file
+package-lock.json
